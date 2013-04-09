@@ -71,7 +71,7 @@ class EventTrackerTest(unittest.TestCase):
 
         event = 'foo_event'
         is_test = 1
-        properties = {'token': 'testtoken'}
+        properties = {'token': 'testtoken', 'ip': 'SOME.IP', }
         params = {'event': event, 'properties': properties}
 
         url_params = et._build_params(event, properties, is_test)
