@@ -191,6 +191,9 @@ class PeopleTracker(EventTracker):
             '$token': properties['token'],
             '$distinct_id': properties['distinct_id'],
             }
+        if 'ip' in properties:
+            params['$ip'] = properties['ip']
+            del properties['ip']
         if event == 'track_charge':
             time = properties.get('time', datetime.datetime.now().isoformat())
             params[mp_key] = {'$transactions': {

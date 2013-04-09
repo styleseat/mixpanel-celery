@@ -115,7 +115,8 @@ class EventTrackerTest(unittest.TestCase):
         event = 'set'
         is_test = 1
         properties = {'stuff': 'thing', 'blue': 'green',
-                      'distinct_id': 'test_id', 'token': 'testtoken'}
+                      'distinct_id': 'test_id', 'token': 'testtoken',
+                      'ip': 'MY.IP.ADD.RESS'}
         expected = {
             '$distinct_id': 'test_id',
             '$set': {
@@ -123,6 +124,7 @@ class EventTrackerTest(unittest.TestCase):
                 'blue': 'green',
                 },
             '$token': 'testtoken',
+            '$ip': 'MY.IP.ADD.RESS',
             }
         url_params = et._build_params(event, properties, is_test)
         expected_params = urllib.urlencode({
