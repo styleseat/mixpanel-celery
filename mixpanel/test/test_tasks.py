@@ -1,16 +1,14 @@
-import unittest
-from datetime import datetime
 import base64
-import urllib
+import json
 import logging
+import unittest
+import urllib
+from datetime import datetime
+
 import mock
-
-from django.utils import simplejson
-
 from celery.exceptions import RetryTaskError
-
-from mixpanel.tasks import EventTracker, PeopleTracker, FunnelEventTracker
 from mixpanel.conf import settings as mp_settings
+from mixpanel.tasks import EventTracker, FunnelEventTracker, PeopleTracker
 
 
 class FakeDateTime(datetime):
@@ -77,7 +75,7 @@ class EventTrackerTest(unittest.TestCase):
         url_params = et._build_params(event, properties, is_test)
 
         expected_params = urllib.urlencode({
-            'data':base64.b64encode(simplejson.dumps(params)),
+            'data':base64.b64encode(json.dumps(params)),
             'test':is_test,
             })
 
@@ -104,7 +102,7 @@ class EventTrackerTest(unittest.TestCase):
             }
         url_params = et._build_params(event, properties, is_test)
         expected_params = urllib.urlencode({
-            'data':base64.b64encode(simplejson.dumps(expected)),
+            'data':base64.b64encode(json.dumps(expected)),
             'test':is_test,
             })
 
@@ -128,7 +126,7 @@ class EventTrackerTest(unittest.TestCase):
             }
         url_params = et._build_params(event, properties, is_test)
         expected_params = urllib.urlencode({
-            'data':base64.b64encode(simplejson.dumps(expected)),
+            'data':base64.b64encode(json.dumps(expected)),
             'test':is_test,
             })
 

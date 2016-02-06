@@ -1,17 +1,16 @@
-import httplib
-import urllib
 import base64
 import datetime
-import urlparse
+import json
 import logging
 import socket
+import urllib
+import urlparse
 
-from django.utils import simplejson
-
-from celery.task import Task
+import httplib
 from celery.registry import tasks
-
+from celery.task import Task
 from mixpanel.conf import settings as mp_settings
+
 
 class EventTracker(Task):
     """
@@ -126,7 +125,7 @@ class EventTracker(Task):
         """
         Encodes data and returns the urlencoded parameters
         """
-        data = base64.b64encode(simplejson.dumps(params))
+        data = base64.b64encode(json.dumps(params))
 
         data_var = mp_settings.MIXPANEL_DATA_VARIABLE
         return urllib.urlencode({data_var: data, 'test': is_test})
